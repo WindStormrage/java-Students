@@ -17,7 +17,6 @@ public class showTable {
 	}
 	//最高成绩表
 	public Object[][] highestScore() {
-		
 		int max;	
 		Object[][] data = new Object[100][100];
 		int i = 0;
