@@ -17,7 +17,7 @@ public class test {
 		Object data[][] =  new Object[100][100];
 		
 		data = aa.highestScore();
-		//data = a.showData();
+		//data = aa.showData();
 
 			
 		
@@ -28,9 +28,9 @@ public class test {
 
 			
 		
-		for(int i = 0; i<3; i++) {
-			for(int j = 0; j<5 ; j++){
-				System.out.print(data[i][j]+"--");	
+		for(int i = 0; i<2; i++) {
+			for(int j = 0; j<6 ; j++){
+				System.out.print(data[i][j]+"\t");	
 			}
 			System.out.println();	
 		}	

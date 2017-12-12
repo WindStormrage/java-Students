@@ -17,6 +17,7 @@ public class showTable {
 	}
 	//最高成绩表
 	public Object[][] highestScore() {
+		
 		int max;	
 		Object[][] data = new Object[100][100];
 		int i = 0;
@@ -24,6 +25,7 @@ public class showTable {
 		rs2 = course.showData();
 		//循环科目
 		while(rs2[j][0] != null) {	
+			//System.out.println(rs2[j][1].toString());
 			max = -1;
 			rs3 = score.showData(false);
 			//循环成绩，找当前科目最高成绩
@@ -31,8 +33,9 @@ public class showTable {
 			while(rs3[k][0] != null){
 				//只有科目相同才处理
 				if(rs2[j][0].equals(rs3[k][1])) {
-					System.out.println(Integer.parseInt(rs3[k][2].toString()));
 					if(Integer.parseInt(rs3[k][2].toString()) >= max) {
+						//System.out.println(Integer.parseInt(rs3[k][2].toString()));
+						//System.out.println(max);
 						//第一个人是最大的，肯定比-1大，如果第二个人等于第一个人的话继续记录，这样子就可以记录下分数相同的最高分了
 						//这个人是最高分//记下这个人
 						max = Integer.parseInt(rs3[k][2].toString());
@@ -41,11 +44,12 @@ public class showTable {
 						l = 0;
 						while(rs1[l][0] != null) {
 							if(rs3[k][0].equals(rs1[l][0])) {
-								data[i][0] = rs1[l][0];
-								data[i][1] = rs1[l][1];
-								data[i][2] = rs1[l][2];
-								data[i][3] = rs1[l][3];
-								data[i][4] = rs3[k][2];
+								data[i][0] = rs2[j][1];
+								data[i][1] = rs1[l][0];
+								data[i][2] = rs1[l][1];
+								data[i][3] = rs1[l][2];
+								data[i][4] = rs1[l][3];
+								data[i][5] = rs3[k][2];
 								i++;
 								break;
 							}

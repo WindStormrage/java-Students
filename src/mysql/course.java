@@ -21,9 +21,9 @@ public class course {
 				data[i][0] = rs.getString("Course_Num");
 				data[i][1] = rs.getString("Course_Name");
 				data[i][2] = rs.getInt("Course_Leasons");
-				data[i][2] = rs.getInt("Course_Nature");
-				data[i][2] = rs.getInt("Course_Credit");
-				data[i][1] = rs.getString("Course_Teacher");
+				data[i][3] = rs.getInt("Course_Nature");
+				data[i][4] = rs.getInt("Course_Credit");
+				data[i][5] = rs.getString("Course_Teacher");
 				i++;
 //				System.out.print(rs.getString("Course_Num")+"\t");
 //				System.out.print(rs.getString("Course_Name")+"\t");
