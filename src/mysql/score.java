@@ -10,13 +10,21 @@ public class score {
 
 	//查//true升序//false降序
 	public Object[][] showData(boolean type){
-		Object[][] data = new Object[100][100];
+		int count = 0;
 		try{
 			db.ConnectMySQL();
 			stmt = db.conn.createStatement();
-			String sql = "select * from Score order by Score " + (type ? "": "desc");
+			//先要找出数据库里面的数据数量，根据数量来确定数组大小
+			String sql = "select count(Stu_Num) from student";
+			rs = stmt.executeQuery(sql);
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}				
+			
+			sql = "select * from Score order by Score " + (type ? "": "desc");
 			rs = stmt.executeQuery(sql);
 			int i = 0;
+			Object[][] data = new Object[count+1][3];
 			while(rs.next()){
 				data[i][0] = rs.getString("Stu_Num");
 				data[i][1] = rs.getString("Course_Num");
@@ -32,7 +40,7 @@ public class score {
 			return data;
 		}catch(SQLException e){
 			e.printStackTrace();
-			return data;
+			return null;
 		}
 	}
 	

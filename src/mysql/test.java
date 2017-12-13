@@ -10,15 +10,21 @@ public class test {
 	
 	public static void main(String []args){
 		student a = new student();
-
+		//a.showData();
+		Object[][] data = new Object[100][100];
+		showTable aa = new showTable();
+		aa.highestScore();
+		
+/*
 			
 		showTable aa = new showTable();
 		
+		
 		Object data[][] =  new Object[100][100];
 		
-		data = aa.highestScore();
+		//data = aa.highestScore();
 		//data = aa.showData();
-
+		data = aa.studentScore("A123",true);
 			
 		
 		//System.out.println(data[0][3]+"***********");
@@ -67,6 +73,8 @@ public class test {
 		//c.update("A123", "1234", "A1243", "123", 20);
 		//c.showData();
 		//在改的那还要判断是否有这个名字和是否有这个课程
+		 * 
+		 */
 	}
 
 }

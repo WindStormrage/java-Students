@@ -6,9 +6,9 @@ public class showTable {
 	student student;
 	course course;
 	score score;
-	Object[][] rs1 = new Object[100][100];
-	Object[][] rs2 = new Object[100][100];
-	Object[][] rs3 = new Object[100][100];
+	Object[][] rs1;
+	Object[][] rs2;
+	Object[][] rs3;
 	
 	public showTable(){
 		student = new student();
@@ -25,7 +25,7 @@ public class showTable {
 		rs2 = course.showData();
 		//循环科目
 		while(rs2[j][0] != null) {	
-			//System.out.println(rs2[j][1].toString());
+			System.out.println(rs2[j][1].toString());
 			max = -1;
 			rs3 = score.showData(false);
 			//循环成绩，找当前科目最高成绩
@@ -66,7 +66,128 @@ public class showTable {
 		}
 		return data;		
 	}
+	
+	//通过学号给名字
+	public String getName(String id) {
+		int i = 0;
+		rs1 = student.showData();
+		while(rs1[i][0] != null) {
+			if(rs1[i][0].equals(id)) {
+				return (String) rs1[i][1];
+			}
+		}
+		return null;
+		
+	}
 
-
+	//学生成绩表
+	public Object[][] studentScore(String id, boolean type){
+		int j = 0,k = 0;
+		Object[][] data = new Object[100][100];
+		int m = 0;
+		//先找出是哪个同学
+		rs2 = course.showData();
+		rs3 = score.showData(type);
+		//用这个学号，去成绩表里面，把这个学生的成绩和课程号找到
+		while(rs3[k][0]!=null) {
+			if(rs3[k][0].equals(id)) {
+				//找到一条记录是这个学号的,记下他的成绩，然后通过课程号去课程表找
+				data[m][0] = rs3[k][1];
+				data[m][2] = rs3[k][2];
+				while(rs2[j][0]!=null) {
+					if(rs2[j][0].equals(rs3[k][1])) {
+						//通过课程号找到这个课程名，然后记下
+						data[m][1] = rs2[j][1];
+						m++;
+						break;
+					}
+					j++;
+				}
+			}
+			k++;
+		}
+		return data;
+	}
+	
+	//给所有课程名课程号
+	public Object[][] getAllCourse(){
+		int j = 0;
+		Object[][] data = new Object[100][100];
+		rs2 = course.showData();
+		while(rs2[j][0] != null) {
+			data[j][0] = rs2[j][0];
+			data[j][1] = rs2[j][1];
+		}
+		return data;	
+	}
+	
+	//课程号给课程名
+	public String getCourse(String id) {
+		int j = 0;
+		rs2 = course.showData();
+		while(rs2[j][0] != null) {
+			if(rs2[j][0].equals(id)) {
+				return (String) rs2[j][1];
+			}
+		}
+		return null;		
+	}
+	
+	//课程成绩表
+	public Object[][] courseScore(String id, boolean type){
+		int i = 0,k = 0;
+		Object[][] data = new Object[100][100];
+		int m = 0;
+		rs1 = student.showData();
+		rs3 = score.showData(type);
+		//用这个课程号，去成绩表里面，把这个课程的成绩和学生号找到
+		while(rs3[k][0]!=null) {
+			if(rs3[k][1].equals(id)) {
+				//找到一条记录是这个课程的,记下他的成绩，然后通过学生号去学生表找
+				data[m][0] = rs3[k][0];
+				data[m][2] = rs3[k][2];
+				while(rs1[i][0]!=null) {
+					if(rs1[i][0].equals(rs3[k][0])) {
+						//通过学生号找到这个学生名，然后记下
+						data[m][1] = rs1[i][1];
+						m++;
+						break;
+					}
+					i++;
+				}
+			}
+			k++;
+		}
+		return data;
+	}
+	
+	//课程平均成绩表
+	public Object[][] average(){
+		Object[][] data = new Object[100][100];
+		rs2 = course.showData();
+		int i = 0,j = 0,k = 0;
+		int m = 0;
+		int sum = 0, average = 0, number = 0;
+		while(rs2[j][0]!=null) {
+			data[m][0] = rs2[j][0];
+			data[m][1] = rs2[j][1];
+			rs3 = score.showData(false);
+			sum = 0; number = 0;
+			//开始根据课程编号，去成绩表统计总数，算平均数了
+			while(rs3[k][0]!=null) {
+				//如果是这个课程就加上
+				if(rs3[k][1].equals(rs2[j][0])) {
+					sum += Integer.parseInt(rs3[k][2].toString());
+					number++;					
+				}
+				k++;
+			}
+			data[m][2] = number;
+			data[m][3] = sum/number;
+			m++;
+			j++;
+		}
+		return data;		
+	}
 	
 }

@@ -10,13 +10,21 @@ public class student {
 
 	//查
 	public Object[][] showData(){
-		Object[][] data = new Object[100][100];
+		int count = 0;
 		try{
 			db.ConnectMySQL();
 			stmt = db.conn.createStatement();
-			String sql = "select * from student";
+			//先要找出数据库里面的数据数量，根据数量来确定数组大小
+			String sql = "select count(Stu_Num) from student";
+			rs = stmt.executeQuery(sql);
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}		
+			
+			sql = "select * from student";
 			rs = stmt.executeQuery(sql);
 			int i = 0;
+			Object[][] data = new Object[count+1][5];
 			while(rs.next()){
 				data[i][0] = rs.getString("Stu_Num");
 				data[i][1] = rs.getString("Stu_Name");
@@ -34,7 +42,7 @@ public class student {
 			return data;
 		}catch(SQLException e){
 			e.printStackTrace();
-			return data;
+			return null;
 		}
 	}
 	
