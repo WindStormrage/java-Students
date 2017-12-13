@@ -7,7 +7,27 @@ public class score {
 	conn db = new conn();
 	java.sql.Statement stmt;
 	ResultSet rs;
-
+	
+	public int count () {
+		int count = 0;
+		db.ConnectMySQL();
+		try {
+			stmt = db.conn.createStatement();
+			//先要找出数据库里面的数据数量，根据数量来确定数组大小
+			String sql = "select count(Stu_Num) from Score";
+			rs = stmt.executeQuery(sql);
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}	
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
 	//查//true升序//false降序
 	public Object[][] showData(boolean type){
 		int count = 0;
@@ -15,16 +35,16 @@ public class score {
 			db.ConnectMySQL();
 			stmt = db.conn.createStatement();
 			//先要找出数据库里面的数据数量，根据数量来确定数组大小
-			String sql = "select count(Stu_Num) from student";
+			String sql = "select count(Stu_Num) from Score";
 			rs = stmt.executeQuery(sql);
 			if(rs.next()) {
 				count = rs.getInt(1);
 			}				
-			
+			//System.out.print(count);
 			sql = "select * from Score order by Score " + (type ? "": "desc");
 			rs = stmt.executeQuery(sql);
 			int i = 0;
-			Object[][] data = new Object[count+1][3];
+			Object[][] data = new Object[count][3];
 			while(rs.next()){
 				data[i][0] = rs.getString("Stu_Num");
 				data[i][1] = rs.getString("Course_Num");

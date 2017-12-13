@@ -10,10 +10,21 @@ public class test {
 	
 	public static void main(String []args){
 		student a = new student();
-		//a.showData();
+//		Object[][] data;
+//		data = a.showData();
+//		
+		
 		Object[][] data = new Object[100][100];
 		showTable aa = new showTable();
-		aa.highestScore();
+		//data = aa.highestScore();
+		data = aa.average();
+		for(int i = 0; i<3; i++) {
+			for(int j = 0; j<5 ; j++){
+				System.out.print(data[i][j]+"\t");	
+			}
+			System.out.println();	
+		}	
+		//System.out.println(aa.getName("A12301"));
 		
 /*
 			
